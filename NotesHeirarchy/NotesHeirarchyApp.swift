@@ -11,7 +11,8 @@ import SwiftUI
 struct NotesHeirarchyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(resolver: AppContainer.shared.container)
+                .environment(\.injected, AppContainer.shared.container)
         }
     }
 }

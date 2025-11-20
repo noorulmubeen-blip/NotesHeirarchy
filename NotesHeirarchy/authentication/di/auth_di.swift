@@ -36,8 +36,11 @@ public final class AuthAssembly: Assembly {
         // MARK: ViewModels
         
         container.register(LoginViewModel.self) { r in
-            LoginViewModel(getCurrentUserUseCase: r.resolve(GetCurrentUserUseCase.self)!, loginUserWithEmailUseCase: r.resolve(LoginUserWithEmailUseCase.self)!,
-                           validateShortStringUseCase: r.resolve(ValidateShortStringUseCase.self)!, validatePasswordUseCase: r.resolve(ValidatePasswordUseCase.self)!)
+            LoginViewModel(
+                getCurrentUserUseCase: r.resolve(GetCurrentUserUseCase.self)!,
+                loginUserWithEmailUseCase: r.resolve(LoginUserWithEmailUseCase.self)!,
+                validateShortStringUseCase: r.resolve(ValidateShortStringUseCase.self)!,
+                validatePasswordUseCase: r.resolve(ValidatePasswordUseCase.self)!)
         }
         
     }

@@ -24,6 +24,7 @@ final class AppContainer {
             AppCoreAssembly(),
             ValidationAssembly(),
             AuthAssembly(),
+            NoteAssembly(),
         ], container: container)
         container.register(ContentViewModel.self) { resolver in
             ContentViewModel(stringValidator: resolver.resolve(ValidateShortStringUseCase.self)!)

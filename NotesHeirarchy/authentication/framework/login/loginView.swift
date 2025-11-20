@@ -19,12 +19,10 @@ struct LoginView: View {
     
     var body: some View {
         NavigationStack {
-            // Apply padding to the *outer* VStack
             VStack(alignment: .leading) {
                 LoadingContainer(uiState: viewModel.uiState, content: {
                     VStack(alignment: .leading) {
-                        Text("Enter Username...",)
-                        
+                        Text("Enter Username...")
                         TextFieldForState(
                             uiState: viewModel.userNameState,
                             onUpdate: viewModel.updateUserName(userName:),
@@ -32,7 +30,6 @@ struct LoginView: View {
                         )
                         
                         Text("Enter Password...")
-                        
                         TextFieldForObscureState(
                             uiState: viewModel.passwordState,
                             onUpdate: viewModel.updatePassword(password:),
@@ -54,15 +51,10 @@ struct LoginView: View {
                             Text(message).foregroundColor(.red)
                         }
                     }
-                    // 2. Add `maxWidth: .infinity` to the inner VStack to make it span fully.
                     .frame(maxWidth: .infinity)
-                    // 3. Apply the horizontal padding to this fully-spanning VStack.
                     .padding(.horizontal)
                 })
-                // 4. Remove the `.padding()` that was applied to the outer VStack (at the bottom).
-            }// Keep the top padding or adjust as needed
-            // Removed the `.padding()` from here as it was applied to the inner VStack,
-            // but kept `.padding(.top)` for top spacing.
+            }
             .navigationTitle("Notes")
             .navigationDestination(isPresented: $viewModel.navigateToUserNotes) {
                 Text("User Notes")

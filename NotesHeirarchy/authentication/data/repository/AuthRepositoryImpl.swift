@@ -41,7 +41,7 @@ class AuthRepositoryImpl : AuthRepository{
         }
     }
     
-    func loginUser(email: String, password: String) async -> AppCore.DomainResponse<User?> {
+    func loginUser(email: String, password: String) async -> DomainResponse<User?> {
         let response = await authRemoteSource.loginUser(email: email, password: password)
         let domainResponse = response.toDomainResponse()
         switch domainResponse {
@@ -61,7 +61,7 @@ class AuthRepositoryImpl : AuthRepository{
         }
     }
     
-    func logoutUser() async -> AppCore.DomainResponse<Void> {
+    func logoutUser() async -> DomainResponse<Void> {
         let response = await authRemoteSource.logoutUser()
         let domainResponse = response.toDomainResponse()
         if case DomainResponse.Success(_) = domainResponse{

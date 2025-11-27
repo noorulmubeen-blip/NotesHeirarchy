@@ -36,7 +36,7 @@ public final class NoteAssembly: Assembly {
         }
         
         container.register(GetSpecificNoteUseCase.self) { r in
-            GetSpecificNoteUseCase(noteRepository: r.resolve(NoteRepository.self)!)
+            GetSpecificNoteUseCase(noteRepository: r.resolve(NoteRepository.self)!, appEnvironment: r.resolve(AppEnvironment.self)!)
         }
         
         container.register(GetUserNoteUseCase.self) { r in
@@ -59,7 +59,7 @@ public final class NoteAssembly: Assembly {
                 _appEnvironment: r.resolve(AppEnvironment.self)!
             )
         }
-
+        
         
         container.register(UserNoteListViewModel.self){ r  in
             UserNoteListViewModel(
@@ -73,7 +73,8 @@ public final class NoteAssembly: Assembly {
             NoteDetailViewModel(
                 _getSpecificNoteUseCase: r.resolve(GetSpecificNoteUseCase.self)!,
                 _removeUserNoteUseCase: r.resolve(RemoveUserNoteUseCase.self)!,
-                _updateNoteUseCase: r.resolve(UpdateUserNoteUseCase.self)!, noteId: noteId)
+                _updateNoteUseCase: r.resolve(UpdateUserNoteUseCase.self)!,
+                noteId: noteId)
         }
     }
 }

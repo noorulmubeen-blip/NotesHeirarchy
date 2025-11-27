@@ -15,14 +15,23 @@ struct NoteLandingView : View {
     var body : some View{
         TabView {
             NoteListView(resolver: resolver)
-                        .tabItem {
-                            Label("Notes List", systemImage: "list.dash")
-                        }
-
-            UserNoteListView(resolver : resolver)
-                        .tabItem {
-                            Label("User Note List view", systemImage: "square.and.pencil")
-                        }
+                .tabItem {
+                    Label("Notes List", systemImage: "list.dash")
                 }
+            
+            UserNoteListView(resolver : resolver)
+                .tabItem {
+                    Label("User Note List view", systemImage: "square.and.pencil")
+                }
+        }.toolbar {
+            // Define the content of the toolbar
+            ToolbarItem(placement: .navigationBarTrailing) {
+                // 3. Use a standard Button for the toolbar item
+                NavigationLink(destination: NoteDetailView(resolver: resolver, noteId : 0)) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
     }
+    
 }

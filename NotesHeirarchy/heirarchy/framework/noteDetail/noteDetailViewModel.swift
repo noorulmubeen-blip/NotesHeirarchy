@@ -26,7 +26,8 @@ class NoteDetailViewModel : ObservableObject {
     
     init(_getSpecificNoteUseCase: GetSpecificNoteUseCase,
          _removeUserNoteUseCase: RemoveUserNoteUseCase,
-         _updateNoteUseCase: UpdateUserNoteUseCase, noteId: Int) {
+         _updateNoteUseCase: UpdateUserNoteUseCase,
+         noteId: Int) {
         self._getSpecificNoteUseCase = _getSpecificNoteUseCase
         self._removeUserNoteUseCase = _removeUserNoteUseCase
         self._updateNoteUseCase = _updateNoteUseCase

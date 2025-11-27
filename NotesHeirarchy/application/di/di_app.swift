@@ -20,6 +20,10 @@ final class AppContainer {
     }
     
     private func registerServices() {
+        container.register(AppEnvironment.self) { _ in
+            return AppEnvironment()
+        }
+        .inObjectScope(.container)
         Assembler([
             AppCoreAssembly(),
             ValidationAssembly(),

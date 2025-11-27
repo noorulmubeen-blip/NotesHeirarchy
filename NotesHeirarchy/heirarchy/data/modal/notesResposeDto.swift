@@ -6,7 +6,7 @@
 //
 
 struct NotesResponseDto : Decodable{
-    var notes : [Note]
+    var todos : [Note]
     var total : Int
     var skip : Int
     var limit : Int

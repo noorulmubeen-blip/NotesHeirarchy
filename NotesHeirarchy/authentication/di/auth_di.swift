@@ -40,7 +40,8 @@ public final class AuthAssembly: Assembly {
                 getCurrentUserUseCase: r.resolve(GetCurrentUserUseCase.self)!,
                 loginUserWithEmailUseCase: r.resolve(LoginUserWithEmailUseCase.self)!,
                 validateShortStringUseCase: r.resolve(ValidateShortStringUseCase.self)!,
-                validatePasswordUseCase: r.resolve(ValidatePasswordUseCase.self)!)
+                validatePasswordUseCase: r.resolve(ValidatePasswordUseCase.self)!,
+                appEnvironment: r.resolve(AppEnvironment.self)!)
         }
         
     }

@@ -25,16 +25,14 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do{
             let notes: NotesResponseDto = try await apiClient.getRequest(request)
-            let totalPages = notes.total / pageSize
-            let totalItems = notes.total
-            
+            let totalPages = notes.total / pageSize + 2
             
             return NetworkResponse.success(data : PaginatedData<Note>(
                 pageNo: pageNo,
                 totalItems: notes.total,
                 pageSize: pageSize,
                 totalPages: totalPages,
-                data : notes.notes,
+                data : notes.todos,
             )
             )
         } catch {
@@ -60,7 +58,7 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
             return NetworkResponse.exception(error)
         }
         do {
-            let note: Note = try await self.apiClient.postRequest(request)
+            let _ : EmptyResponse = try await self.apiClient.postRequest(request)
             return NetworkResponse.success(data : ())
         }
         catch let APIClientError.server(message, status) {
@@ -81,7 +79,7 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do{
-            let noteResponse: EmptyResponse = try await self.apiClient.getRequest(request)
+            let _: EmptyResponse = try await self.apiClient.getRequest(request)
             return NetworkResponse.success(data : ())
         } catch {
             return NetworkResponse.exception(error)
@@ -127,8 +125,7 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do{
             let notes: NotesResponseDto = try await apiClient.getRequest(request)
-            let totalPages = notes.total / pageSize
-            let totalItems = notes.total
+            let totalPages = notes.total / pageSize + 1
             
             
             return NetworkResponse.success(data : PaginatedData<Note>(
@@ -136,7 +133,7 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
                 totalItems: notes.total,
                 pageSize: pageSize,
                 totalPages: totalPages,
-                data : notes.notes,
+                data : notes.todos,
             )
             )
         } catch {

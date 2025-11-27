@@ -57,9 +57,9 @@ struct LoginView: View {
             }
             .navigationTitle("Notes")
             .navigationDestination(isPresented: $viewModel.navigateToUserNotes) {
-                Text("User Notes")
-                    .font(.title)
-                    .padding()
+                NoteLandingView(resolver : resolver)
+                    .navigationBarBackButtonHidden(true)
+                    .environmentObject(viewModel)
             }
         }
     }

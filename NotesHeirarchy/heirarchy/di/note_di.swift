@@ -31,6 +31,10 @@ public final class NoteAssembly: Assembly {
             GetNotesUseCase(noteRepository: r.resolve(NoteRepository.self)!)
         }
         
+        container.register(UpdateUserNoteUseCase.self) { r in
+            UpdateUserNoteUseCase(noteRepository: r.resolve(NoteRepository.self)!)
+        }
+        
         container.register(GetSpecificNoteUseCase.self) { r in
             GetSpecificNoteUseCase(noteRepository: r.resolve(NoteRepository.self)!)
         }
@@ -46,7 +50,30 @@ public final class NoteAssembly: Assembly {
         container.register(RemoveUserNoteUseCase.self) { r in
             RemoveUserNoteUseCase(noteRepository: r.resolve(NoteRepository.self)!)
         }
-        // MARK: viewModels
         
+        // MARK: viewModels
+        container.register(NoteListViewModel.self){ r in
+            NoteListViewModel(
+                _getNoteListUseCase: r.resolve( GetNotesUseCase.self)!,
+                _deleteSpecificUser: r.resolve(RemoveUserNoteUseCase.self)!,
+                _appEnvironment: r.resolve(AppEnvironment.self)!
+            )
+        }
+
+        
+        container.register(UserNoteListViewModel.self){ r  in
+            UserNoteListViewModel(
+                _getUserNoteListUseCase: r.resolve(GetUserNoteUseCase.self)!,
+                _deleteSpecificUser: r.resolve(RemoveUserNoteUseCase.self)!,
+                appEnvironment: r.resolve(AppEnvironment.self)!
+            )
+        }
+        
+        container.register(NoteDetailViewModel.self){ (r,noteId) in
+            NoteDetailViewModel(
+                _getSpecificNoteUseCase: r.resolve(GetSpecificNoteUseCase.self)!,
+                _removeUserNoteUseCase: r.resolve(RemoveUserNoteUseCase.self)!,
+                _updateNoteUseCase: r.resolve(UpdateUserNoteUseCase.self)!, noteId: noteId)
+        }
     }
 }

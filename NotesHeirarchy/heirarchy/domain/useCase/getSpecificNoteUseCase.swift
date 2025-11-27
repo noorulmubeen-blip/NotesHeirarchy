@@ -13,7 +13,7 @@ class GetSpecificNoteUseCase{
         self.noteRepository = noteRepository
     }
     
-    func invoke(noteId: String) async throws -> DomainResponse<Note>{
+    func invoke(noteId: Int) async  -> DomainResponse<Note>{
         return await self.noteRepository.getSpecificNote(noteId: noteId)
     }
 }

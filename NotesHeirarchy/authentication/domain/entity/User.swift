@@ -5,7 +5,7 @@
 //  Created by Noor ul Mubeen on 17/11/2025.
 //
 
-struct User{
+struct User : Equatable{
     var id: Int
     var name: String
     var email: String

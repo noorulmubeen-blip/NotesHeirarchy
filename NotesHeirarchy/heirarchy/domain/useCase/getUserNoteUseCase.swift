@@ -13,7 +13,7 @@ class GetUserNoteUseCase {
         self.noteRepository = noteRepository
     }
     
-    func invoke(pageNo: Int, pageSize: Int) async -> DomainResponse<PaginatedData<Note>>{
-        return await self.noteRepository.fetchNotes(pageNo: pageNo, pageSize: pageSize)
+    func invoke(userId: Int,pageNo: Int, pageSize: Int) async -> DomainResponse<PaginatedData<Note>>{
+        return await self.noteRepository.fetchUserNotes(userId: userId, pageNo: pageNo, pageSize: pageSize)
     }
 }

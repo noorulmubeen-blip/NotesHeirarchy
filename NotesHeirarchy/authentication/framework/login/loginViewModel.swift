@@ -14,19 +14,22 @@ class LoginViewModel : ObservableObject {
     @Published var userNameState: UiState<String> = .uiIdle(data: "")
     @Published var passwordState: UiState<String> = .uiIdle(data: "")
     @Published var uiState: UiState<User?> = .uiLoading(data:nil)
+    @Published var user : User? = nil
     let getCurrentUserUseCase : GetCurrentUserUseCase
     let loginUserWithEmailUseCase: LoginUserWithEmailUseCase
     let validateShortStringUseCase : ValidateShortStringUseCase
     let validatePasswordUseCase : ValidatePasswordUseCase
+    let appEnvironment : AppEnvironment
     
     init(
         getCurrentUserUseCase: GetCurrentUserUseCase, loginUserWithEmailUseCase: LoginUserWithEmailUseCase,
-        validateShortStringUseCase: ValidateShortStringUseCase, validatePasswordUseCase: ValidatePasswordUseCase) {
+        validateShortStringUseCase: ValidateShortStringUseCase, validatePasswordUseCase: ValidatePasswordUseCase,
+        appEnvironment :AppEnvironment) {
             self.getCurrentUserUseCase = getCurrentUserUseCase
             self.loginUserWithEmailUseCase = loginUserWithEmailUseCase
             self.validateShortStringUseCase = validateShortStringUseCase
             self.validatePasswordUseCase = validatePasswordUseCase
-            
+            self.appEnvironment = appEnvironment
             getCurrentUser()
         }
     
@@ -37,7 +40,12 @@ class LoginViewModel : ObservableObject {
             await MainActor.run{
                 switch response {
                 case .Success(let user):
-                    self.uiState = .uiSuccess(data: user)
+                    guard let correctUser = user else {
+                        return
+                    }
+                    self.uiState = .uiSuccess(data: correctUser)
+                    self.appEnvironment.setUser(user: correctUser)
+                    self.user = correctUser
                     self.navigateToUserNotes = true
                     
                 case .Error(_, _):
@@ -81,7 +89,12 @@ class LoginViewModel : ObservableObject {
                 await MainActor.run{
                     switch response {
                     case .Success(let user):
-                        self.uiState = .uiSuccess(data: user)
+                        guard let correctUser = user else {
+                            return
+                        }
+                        
+                        self.appEnvironment.setUser(user: correctUser)
+                        self.uiState = .uiSuccess(data: correctUser)
                         self.navigateToUserNotes = true
                         
                     case .Error(_, let message):

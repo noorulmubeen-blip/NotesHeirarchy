@@ -8,7 +8,7 @@ import AppCore
 
 protocol NoteRemoteSource{
     func fetchNotes(pageNo: Int, pageSize: Int) async -> NetworkResponse<PaginatedData<Note>>
-    func addNote(note: Note) async -> NetworkResponse<Void>
+    func addNote(note: Note) async -> NetworkResponse<Note>
     func removeNote(noteId: Int) async -> NetworkResponse<Void>
     func updateNote(note: Note) async -> NetworkResponse<Note>
     func fetchUserNotes(userId: Int, pageNo: Int, pageSize: Int) async -> NetworkResponse<PaginatedData<Note>>

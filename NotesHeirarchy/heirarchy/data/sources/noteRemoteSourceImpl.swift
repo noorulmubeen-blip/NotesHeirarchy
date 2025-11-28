@@ -40,7 +40,7 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
         }
     }
     
-    func addNote(note: Note) async -> NetworkResponse<Void> {
+    func addNote(note: Note) async -> NetworkResponse<Note> {
         guard let requestUrl = URL(string: "https://dummyjson.com/todos/add") else {
             return NetworkResponse.exception(NetworkError.invalidUrl)
         }
@@ -58,8 +58,8 @@ class NoteRemoteSourceImpl: NoteRemoteSource {
             return NetworkResponse.exception(error)
         }
         do {
-            let _ : EmptyResponse = try await self.apiClient.postRequest(request)
-            return NetworkResponse.success(data : ())
+            let note: Note = try await self.apiClient.postRequest(request)
+            return NetworkResponse.success(data : note)
         }
         catch let APIClientError.server(message, status) {
             return NetworkResponse.error(message: message, code: status, data: nil)

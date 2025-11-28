@@ -18,8 +18,8 @@ class UpdateUserNoteUseCase{
         if(note.id == 0){
             let response = await self.noteRepository.addNote(note: note)
             switch response {
-            case .Success(_):
-                return .Success(data : note)
+            case .Success(let data):
+                return .Success(data : data)
                 
             case .Error(_, let message):
                 return .Error(data: note, message: message)

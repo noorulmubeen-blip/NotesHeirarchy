@@ -13,7 +13,7 @@ class AddUserNoteUseCase{
         self.noteRepository = noteRepository
     }
     
-    func invoke(note: Note) async -> DomainResponse<Void> {
+    func invoke(note: Note) async -> DomainResponse<Note> {
         return await noteRepository.addNote(note: note)
     }
     

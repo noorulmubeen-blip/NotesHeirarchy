@@ -25,7 +25,7 @@ class NoteRepositoryImpl : NoteRepository {
         return domainResponse
     }
     
-    func addNote(note: Note) async -> DomainResponse<Void> {
+    func addNote(note: Note) async -> DomainResponse<Note> {
         let response = await noteRemoteSource.addNote(note: note)
         return response.toDomainResponse()
     }

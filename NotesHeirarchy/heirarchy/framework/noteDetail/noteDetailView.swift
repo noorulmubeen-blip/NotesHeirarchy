@@ -73,7 +73,10 @@ struct NoteDetailView : View {
                 Button(action: {
                     viewModel.onBackPressed()
                 }) {
-                    Label("Notes List", systemImage: "chevron.left")
+                    HStack{
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
                 }
             }
         }.navigationBarBackButtonHidden(true)

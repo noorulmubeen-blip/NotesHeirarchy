@@ -65,9 +65,18 @@ struct NoteDetailView : View {
                 dismiss()
             }
         }
-        
         .onAppear {
             viewModel.getNotesDetail()
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    viewModel.onBackPressed()
+                }) {
+                    Label("Notes List", systemImage: "chevron.left")
+                }
+            }
+        }.navigationBarBackButtonHidden(true)
     }
+    
 }

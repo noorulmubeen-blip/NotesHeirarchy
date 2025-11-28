@@ -59,6 +59,7 @@ struct NoteListView: View {
                                     }
                                     .padding(.horizontal, 16)
                                 }
+                                
                                 Divider()
                             }
                         }

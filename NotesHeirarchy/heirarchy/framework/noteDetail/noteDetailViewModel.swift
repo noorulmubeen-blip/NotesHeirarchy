@@ -128,4 +128,25 @@ class NoteDetailViewModel : ObservableObject {
         }
     }
     
+    func onBackPressed(){
+        Task{
+            await MainActor.run{
+                chatState = .uiLoading(data: chatState.data)
+            }
+            guard let note = chatState.data else {
+                return
+            }
+            let response = await _updateNoteUseCase.invoke(note: note)
+            await MainActor.run{
+                switch(response){
+                case .Error(_,let message):
+                    chatState = .uiError(message: message, errorException: nil, code: nil, data: note)
+                    
+                case .Success(let data):
+                    chatState = .uiSuccess(data: data)
+                    navigateBack = true
+                }
+            }
+        }
+    }
 }
